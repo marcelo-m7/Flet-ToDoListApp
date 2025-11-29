@@ -1,6 +1,7 @@
 import os
 
 import flet as ft
+
 from config import load_env_file
 from auth import AuthManager
 from todo import TodoApp
