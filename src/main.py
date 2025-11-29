@@ -1,4 +1,7 @@
+import os
+
 import flet as ft
+
 from config import load_env_file
 from auth import AuthManager
 from todo import TodoApp
@@ -36,5 +39,6 @@ def main(page: ft.Page):
     page.add(auth_manager.login_button, auth_manager.logout_button)
 
 # Inicia o aplicativo Flet
-ft.app(main, port=8550, view=ft.AppView.WEB_BROWSER, host="localhost", assets_dir="assets")
-# ft.app(main, port=3000, view=ft.AppView.WEB_BROWSER, host="0.0.0.0", assets_dir="assets") # Replit
+port = int(os.getenv("PORT", "8080"))
+host = os.getenv("HOST", "0.0.0.0")
+ft.app(main, port=port, view=ft.AppView.WEB_BROWSER, host=host, assets_dir="assets")
