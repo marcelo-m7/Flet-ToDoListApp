@@ -3,12 +3,12 @@ import flet as ft
 from flet.auth.providers import GitHubOAuthProvider
 
 class AuthManager:
-    def __init__(self, page: ft.Page):
+    def __init__(self, page: ft.Page, redirect_url: str):
         self.page = page
         self.provider = GitHubOAuthProvider(
             client_id=os.getenv("GITHUB_CLIENT_ID"),
             client_secret=os.getenv("GITHUB_CLIENT_SECRET"),
-            redirect_url='http://localhost:8550/oauth_callback',
+            redirect_url=redirect_url,
         )
             # redirect_url='https://9add73eb-1d78-4beb-99c1-ddcc8e613ebd-00-2c518dp4o8er8.riker.replit.dev:3000/oauth_callback', # Replit
         self.login_button = ft.ElevatedButton("Login with GitHub", on_click=self.login_button_click)
