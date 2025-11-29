@@ -1,24 +1,27 @@
 FROM python:3.11-slim
 
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PORT=8080 \
-    HOST=0.0.0.0
+ENV PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PORT=8080
 
 WORKDIR /app
 
-# Install system dependencies needed for building Python packages like cryptography
+# Install system dependencies for Flet (GTK for linux desktop not needed for web view)
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends build-essential libssl-dev libffi-dev \
+    && apt-get install -y --no-install-recommends \
+        libglib2.0-0 \
+        libgtk-3-0 \
+        libnss3 \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
-COPY pyproject.toml ./
-RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir flet==0.27.1 python-dotenv==1.0.1 cryptography==42.0.8
+# Install Python dependencies first to leverage Docker layer caching
+COPY requirements.txt .
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt
 
 # Copy application source
 COPY src ./src
+COPY assets ./assets
 
 EXPOSE 8080
 
