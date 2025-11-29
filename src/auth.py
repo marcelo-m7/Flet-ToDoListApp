@@ -2,11 +2,12 @@ import os
 import flet as ft
 from flet.auth.providers import GitHubOAuthProvider
 
+from config import build_base_url
+
 class AuthManager:
     def __init__(self, page: ft.Page):
         self.page = page
-        default_base_url = f"http://{os.getenv('HOST', 'localhost')}:{os.getenv('PORT', '8080')}"
-        redirect_base_url = os.getenv("APP_BASE_URL", default_base_url)
+        redirect_base_url = build_base_url()
 
         self.provider = GitHubOAuthProvider(
             client_id=os.getenv("GITHUB_CLIENT_ID"),
