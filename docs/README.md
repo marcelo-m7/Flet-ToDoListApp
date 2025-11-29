@@ -28,21 +28,17 @@ GITHUB_CLIENT_SECRET="seu_client_secret_aqui"
 FERNET_KEY=""  # Opcional (será gerado automaticamente se não existir)
 ```
 
-### 2. Configurar host (`src/auth.py` e `src/main.py`)
+### 2. Configurar host e URL pública
 
-Caso se pretenda fazer deploy no Replit, é necessário alterar a URL e a porta para as fornecidas pelo servidor. Além disso, também é necessário atualizar as URLs na plataforma do servidor de autenticação.
+Para ambientes atrás de proxies ou domínios customizados, configure a URL pública e o binding do servidor via variáveis de ambiente:
 
-`src/auth.py`:
-```python
-redirect_url='http://localhost:3000/oauth_callback',
-# redirect_url='https://9add73eb-1d78-4beb-99c1-ddcc8e613ebd-00-2c518dp4o8er8.riker.replit.dev:3000/oauth_callback', # Replit
-```
+- ``APP_BASE_URL``: URL externa completa (ex.: ``https://todo.mss-7.com``). Necessária quando um proxy faz o offload de HTTPS ou expõe uma porta diferente.
+- ``APP_SCHEME`` e ``PUBLIC_PORT``: opções para definir manualmente o esquema (http/https) e a porta pública quando ``APP_BASE_URL`` não for usada.
+- ``HOST``: nome do host externo usado como fallback ao calcular a URL base.
+- ``PORT``: porta interna de execução (padrão: ``8080``).
+- ``BIND_HOST``: endereço de binding do servidor (padrão: ``0.0.0.0``). Use-o se precisar separar o host de acesso externo do endereço de escuta interno.
 
-`src/main.py`:
-```python
-ft.app(main, port=8550, view=ft.AppView.WEB_BROWSER, host="localhost", assets_dir="src/assets")
-# ft.app(main, port=3000, view=ft.AppView.WEB_BROWSER, host="0.0.0.0", assets_dir="src/assets") # Replit
-```
+Certifique-se de registrar no GitHub OAuth App o ``redirect_url`` gerado a partir da URL pública: ``{APP_BASE_URL}/oauth_callback``.
 
 ## Executando a Aplicação
 

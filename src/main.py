@@ -40,5 +40,5 @@ def main(page: ft.Page):
 
 # Inicia o aplicativo Flet
 port = int(os.getenv("PORT", "8080"))
-host = os.getenv("HOST", "0.0.0.0")
+host = os.getenv("BIND_HOST", os.getenv("SERVER_HOST", "0.0.0.0"))
 ft.app(main, port=port, view=ft.AppView.WEB_BROWSER, host=host, assets_dir="assets")
