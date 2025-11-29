@@ -10,18 +10,13 @@ def main(page: ft.Page):
     # Carrega as variáveis de ambiente
     load_env_file()
 
-    # Configurações do servidor
-    host = os.getenv("HOST", "0.0.0.0")
-    port = int(os.getenv("PORT", 8080))
-    base_url = os.getenv("APP_BASE_URL", f"http://localhost:{port}")
-
     # Configurações da página
     page.title = "ToDo App"
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.scroll = ft.ScrollMode.ADAPTIVE
 
     # Inicializa o gerenciador de autenticação
-    auth_manager = AuthManager(page, redirect_url=f"{base_url}/oauth_callback")
+    auth_manager = AuthManager(page)
 
     # Função para iniciar o aplicativo ToDo após o login
     def start_todo_app():
@@ -44,4 +39,6 @@ def main(page: ft.Page):
     page.add(auth_manager.login_button, auth_manager.logout_button)
 
 # Inicia o aplicativo Flet
+port = int(os.getenv("PORT", "8080"))
+host = os.getenv("HOST", "0.0.0.0")
 ft.app(main, port=port, view=ft.AppView.WEB_BROWSER, host=host, assets_dir="assets")
