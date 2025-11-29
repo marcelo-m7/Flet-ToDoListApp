@@ -8,7 +8,9 @@ authors = [
     { name = "Marcelo Santos", email = "a79433@ualg.pt" }
 ]
 dependencies = [
-  "flet==0.27.1"
+  "flet==0.27.1",
+  "python-dotenv==1.0.1",
+  "cryptography==42.0.8"
 ]
 
 [tool.flet]
