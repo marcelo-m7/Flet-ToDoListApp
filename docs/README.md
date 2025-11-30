@@ -1,6 +1,6 @@
 # ToDo List App
 
-Este é um aplicativo de lista de tarefas (ToDo List) desenvolvido por Marcelo Santos (a79433) para a disciplina de Computação Móvel da Universidade do Algarve (UAlg). O aplicativo foi desenvolvido em Python utilizando a biblioteca Flet e está configurado para deploy no Replit, com a porta aberta 3000. A aplicação permite autenticação via GitHub e armazena as tarefas de forma segura usando criptografia.
+O aplicativo foi desenvolvido em Python utilizando a biblioteca Flet e está configurado para deploy no Replit, com a porta aberta 3000. A aplicação permite autenticação via GitHub e armazena as tarefas de forma segura usando criptografia.
 
 ## Requisitos
 
